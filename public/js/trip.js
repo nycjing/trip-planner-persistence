@@ -28,18 +28,19 @@ var tripModule = (function () {
        })
         .then((respond)=>{
         respond.forEach((day)=>{
-          console.log(day.number);
+          console.log('each day ---',day);
           var newDay = dayModule.create(
               {   number: day.number,
                   hotel : day.hotel,
                   restaurants : day.restaurants,
                   activities : day.activities
               });
+          console.log('newDay ',newDay);
           days.push(newDay);
         })
          console.log('Get all day\'s data: ')})
       .catch(console.error.bind(console));
-
+     console.log('all days in dayarr',days);
   // jQuery selections
 
   var $addButton, $removeButton;
@@ -72,6 +73,17 @@ var tripModule = (function () {
   function addDay () { 
     if (this && this.blur) this.blur(); // removes focus box from buttons
     var newDay = dayModule.create({ number: days.length + 1 }); // dayModule
+
+
+      var id = newDay.number.toString();
+      console.log('typeof',typeof id, 'id', id)
+      $.ajax({
+          method: 'POST',
+          url: '/api/days/'+id
+      })
+          .then(()=>{console.log('Post response data: ')})
+      .catch(console.error.bind(console));
+
     days.push(newDay);
     if (days.length === 1) {
       currentDay = newDay;
@@ -89,13 +101,16 @@ var tripModule = (function () {
     var index = days.indexOf(currentDay);
 
     var dayNum = index+1;
+    console.log('day to delet', typeof dayNum, dayNum);
         $.ajax({
           method: 'DELETE',
           url: '/api/days/'+dayNum
          })
-          .then(()=>{
-          console.log('deleted from the backend')
+          .then((response)=>{
+          console.log('deleted from the backend',response)
         });
+
+      // $.delete('/api/days/'+dayNum)
 
 
 

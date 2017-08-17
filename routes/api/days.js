@@ -40,13 +40,17 @@ router.get('/:id', function(req, res, next){
 })
 
 router.delete('/:id', function(req, res, next){
+    console.log('delete id:', typeof req.params.id,req.params.id);
+    console.log('work please');
+    var numberToDestroy = parseInt(req.params.id);
   Day.destroy(
     {
-      where: {id: req.params.id},
+      where: {number: numberToDestroy},
     }
   )
   .then((respond) => {
     res.send('Hope you meant to destroy that, because it\'s gone!')
+      // console.log('it did delete');
   })
 })
 

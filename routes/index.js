@@ -3,11 +3,13 @@ var router = require('express').Router();
 var Hotel = require('../models').Hotel;
 var Restaurant = require('../models').Restaurant;
 var Activity = require('../models').Activity;
+var Day = require('../models').Day;
 var bodyParser = require('body-parser');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
+router.use('/api/days', require('./api/days'));
 
 router.get('/', function(req, res, next) {
   Promise.all([
@@ -24,6 +26,7 @@ router.get('/', function(req, res, next) {
   })
   .catch(next);
 });
+
 
 // router.use('/api/:options');
 router.get('/api/:options', function(req,res,next){

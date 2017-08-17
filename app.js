@@ -3,9 +3,7 @@ var volleyball = require('volleyball');
 var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var path = require('path');
-
 var db = require('./models').db;
-
 var app = express();
 
 // nunjucks rendering boilerplate

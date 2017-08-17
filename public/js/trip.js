@@ -124,16 +124,16 @@ var tripModule = (function () {
             $(addDay(day));
             console.log('each day ---',day);
 
-            var attraction = attractionsModule.getByTypeAndId('hotel',day.hotelId);
-            publicAPI.addToCurrent(attraction);
-            day.restaurants.forEach((restaurant)=>{
-                var attraction = attractionsModule.getByTypeAndId('restaurant',restaurant.id);
-               publicAPI.addToCurrent(attraction);
-              });
-            day.activities.forEach((activity)=>{
-                var attraction = attractionsModule.getByTypeAndId('activity',activity.id);
-                 publicAPI.addToCurrent(attraction);
-            });
+            // var attraction = attractionsModule.getByTypeAndId('hotel',day.hotelId);
+            // publicAPI.addToCurrent(attraction);
+            // day.restaurants.forEach((restaurant)=>{
+            //     var attraction = attractionsModule.getByTypeAndId('restaurant',restaurant.id);
+            //    publicAPI.addToCurrent(attraction);
+            //   });
+            // day.activities.forEach((activity)=>{
+            //     var attraction = attractionsModule.getByTypeAndId('activity',activity.id);
+            //      publicAPI.addToCurrent(attraction);
+            // });
           })
           // console.log('respond:', respond)
           // respond.forEach((day)=>{
@@ -152,7 +152,6 @@ var tripModule = (function () {
           // days.push(newDay);
           // console.log('all days in dayarr',days);
         })
-         console.log('Get all day\'s data: ')
       .catch(console.error.bind(console));
       // ~~~~~~~~~~~~~~~~~~~~~~~
         //If we are trying to load existing Days, then let's make a request to the server for the day. Remember this is async. For each day we get back what do we need to do to it?

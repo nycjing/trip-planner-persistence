@@ -9,8 +9,6 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
-
-
 router.get('/', function(req,res,next){
     Day.findAll(
       {
@@ -22,9 +20,11 @@ router.get('/', function(req,res,next){
     })
 })
 
-router.post('/', function(req,res,next){
-  // MAKE NEW DAY
-  Day.create()
+router.post('/:id', function(req,res,next){
+    // MAKE NEW DAY
+    console.log(req.params.id);
+    Day.create({number:+req.params.id})
+        .then(()=>{res.send('database add one more day')})
 })
 
 router.get('/:id', function(req, res, next){
@@ -50,18 +50,18 @@ router.delete('/:id', function(req, res, next){
   })
 })
 
-
-router.post('/:id/:options', function(req,res,next){
-  Day.findOne(
-    {
-      where: {id: req.params.id},
-    }
-    .then((respond) => {
-      if (req.params.options === 'hotel'){
-        return Hotel.
-        return setHotel(hotelId)
-      }
-    })
-})
+//
+// router.post('/:id/:options', function(req,res,next){
+//   Day.findOne(
+//     {
+//       where: {id: req.params.id},
+//     }
+//     .then((respond) => {
+//       if (req.params.options === 'hotel'){
+//         return Hotel.
+//         return setHotel(hotelId)
+//       }
+//     })
+// })
 
 module.exports = router;

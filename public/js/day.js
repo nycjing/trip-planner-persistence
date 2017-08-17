@@ -145,8 +145,19 @@ var dayModule = (function () {
 
   var publicAPI = {
 
+
+
     create: function (databaseDay) {
-      return new Day(databaseDay);
+
+        var id = databaseDay.number.toString();
+        console.log('typeof',typeof id, 'id', id)
+        $.ajax({
+            method: 'POST',
+            url: '/api/days/'+id
+        })
+            .then(()=>{console.log('Post response data: ')})
+            .catch(console.error.bind(console));
+        return new Day(databaseDay);
     }
 
   };

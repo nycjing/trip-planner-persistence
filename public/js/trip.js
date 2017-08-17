@@ -22,6 +22,24 @@ var tripModule = (function () {
   var days = [],
       currentDay;
 
+    $.ajax({
+        method: 'GET',
+        url: '/api/days/'
+       })
+        .then((respond)=>{
+        respond.forEach((day)=>{
+          console.log(day.number);
+          var newDay = dayModule.create(
+              {   number: day.number,
+                  hotel : day.hotel,
+                  restaurants : day.restaurants,
+                  activities : day.activities
+              });
+          days.push(newDay);
+        })
+         console.log('Get all day\'s data: ')})
+      .catch(console.error.bind(console));
+
   // jQuery selections
 
   var $addButton, $removeButton;
@@ -68,8 +86,20 @@ var tripModule = (function () {
     // prevent deleting last day
     if (days.length < 2 || !currentDay) return;
     // remove from the collection
-    var index = days.indexOf(currentDay),
-      previousDay = days.splice(index, 1)[0],
+    var index = days.indexOf(currentDay);
+
+    var dayNum = index+1;
+        $.ajax({
+          method: 'DELETE',
+          url: '/api/days/'+dayNum
+         })
+          .then(()=>{
+          console.log('deleted from the backend')
+        });
+
+
+
+    var  previousDay = days.splice(index, 1)[0],
       newCurrent = days[index] || days[index - 1];
     // fix the remaining day numbers
     days.forEach(function (day, i) {
